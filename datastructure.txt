@@ -1,0 +1,49 @@
+DATA STRUCTURE
+
+appointment
+ scheduled or queued
+ date
+ time 6am - 9pm
+ visit type
+ bishopric member
+ date requested
+ 
+availability
+ date
+ time
+ bishopric member
+
+bishopric member
+ name
+ email
+ password
+ calling
+
+PAGES
+queue
+  every page displays the queue. allows appointments to be pushed into queue and items to be deleted
+navigation
+  allows nav between day, week, and month, has next and previous buttons
+day view. default is current day.
+  shows the days appointments and availability
+  when item is dragged into time period or timeslot is clicked and data is entered 
+    appointment is updated/created
+  appointment may be clicked on and deleted
+week view. default is current week
+  shows that there are appointments and availability, may not detail exact times
+month view. default is current month 
+  same as above
+login view
+  accepts log in credentials
+
+login view
+home view
+ -nav subroute
+ -month/day/view subroutes
+ -queue subroute 
+
+PATHS
+queue requires all queued appointments. get /qappts returns array of queued appointments
+navigation gets all scheduled appointments get /nav/[day, week, or month]/[starttime]
+create appointment set /appts expects and appointment and data from what the view is. returns
+log in/log out

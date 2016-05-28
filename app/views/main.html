@@ -1,0 +1,14 @@
+<div ui-view = "nav"></div> <!-- this will display the nav -->
+
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-9">
+      <div ui-view></div> <!-- This will display either the day, week or month view -->
+    </div>
+    
+    <div class = "col-md-3">
+      <div ui-view = "queue"></div> <!-- This will display the queue -->
+    </div>
+
+  </div>
+</div>
