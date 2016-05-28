@@ -1,1 +1,7 @@
-<p>This is the queue view.</p>
+<h4>Queue</h4><hr>
+<div ng-repeat = "v in queued" class = "queue bg-info">
+	<strong>{{v.person}}</strong><br>
+	Visit Type: {{v.type}}<br>
+	Availability: {{v.availability}}<br>
+	Comments: {{v.comments}}
+</div>

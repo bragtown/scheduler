@@ -11,11 +11,20 @@ angular.module('schedulerApp')
   .factory('apptManager', function () {
     // Service logic
     // ...
-    var sendAppt = function(){
+    var sendAppt = function(appt){
       //sends appt to server
+      queued.push(appt)
     }
 
-    var queued = []; //ask for queued appointments from server
+    var queued = [
+      {
+        scheduled: false,
+        person: 'Some Person',
+        type: 'Temple Recommend',
+        availability: 'Anytime on Sunday',
+        comments: 'Would like to visit with Bishop'
+      }
+    ]; //ask for queued appointments from server
 
     // Public API here
     return {
@@ -23,7 +32,7 @@ angular.module('schedulerApp')
         return queued;
       },
       setQueued: function(appt) {
-        sendAppt();
+        sendAppt(appt);
       }
     };
   });

@@ -1,3 +1,9 @@
+.queue{
+  border-radius: 4px;
+  padding: 1em;
+  margin-bottom: 1px;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;

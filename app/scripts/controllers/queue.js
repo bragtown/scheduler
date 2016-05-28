@@ -8,8 +8,9 @@
  * Controller of the schedulerApp
  */
 angular.module('schedulerApp')
-  .controller('QueueCtrl', function () {
+  .controller('QueueCtrl', function ($scope, apptManager) {
 
+  	$scope.queued = apptManager.getQueued();
   	// this should accept an array from a service of queued appiontments and inject them into the queue view
   	//should send new queued appointments to the service
   });
