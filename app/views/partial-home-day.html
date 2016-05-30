@@ -1,1 +1,47 @@
 <p>This is the partial-home-day view.</p>
+
+<button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
+<button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
+<button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
+
+
+<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar = "myCalendar1"></div>
+
+ <!-- Move queue in here  -->
+<div ng-show = "addEventDisplay" class = "well">
+ 	<label>Event Type</label>
+ 	<select class = "form-control" ng-model = "newEvent.eventType">
+ 		<option value = "Appointment">Appointment</option>
+ 		<option value = "Availability">Availability</option>
+ 		<option value = "Busy">Busy</option>
+ 	</select>
+
+ 	<label>Start Time</label>
+ 	<input class = "form-control" type = "datetime" ng-model = "newEvent.start">
+
+ 	<!-- These are if appointment was selected previously -->
+ 	<div ng-if = "newEvent.eventType == 'Appointment'">
+	 	<label>Person</label>
+	 	<input class = "form-control" type = "text" ng-model = "newEvent.person">
+	 	<label>Appointment Type</label>
+	 	<input class = "form-control" type = "text" ng-model = "newEvent.apptType">
+	 	<label>Duration (minutes)</label>
+	 	<input class = "form-control" type = "number" ng-model = "newEvent.duration">
+ 	</div>
+ 	<!-- otherwise -->
+ 	<div ng-if = "newEvent.eventType == 'Availability' || newEvent.eventType == 'Busy'">
+	 	<label>End Time</label>
+	 	<input class = "form-control" type = "datetime-local" ng-model = "newEvent.end">
+ 	</div>
+
+ 	<label>Comments</label>
+ 	<textarea class = "form-control" ng-model = "newEvent.comments"></textarea>
+ 	<label>Bishopric Member</label>
+ 	<select class = "form-control" ng-model = "newEvent.bishopricMember">
+ 		<option value = "Bishop">Bishop</option>
+ 		<option value = "1st">1st</option>
+ 		<option value = "2nd">2nd</option>
+ 	</select>
+ 	<button class = "btn btn-success" ng-click = "addEvent()">Submit</button>
+</div>
+
