@@ -20,8 +20,7 @@ angular.module('schedulerApp')
       {
         scheduled: false,
         person: 'Some Person',
-        type: 'Temple Recommend',
-        availability: 'Anytime on Sunday',
+        apptType: 'Temple Recommend',
         comments: 'Would like to visit with Bishop'
       }
     ]; //ask for queued appointments from server
@@ -45,6 +44,36 @@ angular.module('schedulerApp')
       {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
     ];
 
+    var sendAppt = function(appt){
+      if(appt.bishopricMember == 'Bishop'){
+        appt.backgroundColor = '#ffa64d';
+        appt.borderColor = '#ffa64d';
+      }
+      if(appt.bishopricMember == '1st'){
+        appt.backgroundColor = '#ffff00';
+        appt.borderColor = '#ffff00';
+      }
+      if(appt.bishopricMember == '2nd'){
+        appt.backgroundColor = '#008000';
+        appt.borderColor = '#008000';
+      }
+
+      if(appt.eventType == 'Availability'){
+        appt.backgroundColor = 'white';
+        appt.textColor = 'black';
+      }
+      if(appt.eventType == 'Busy'){
+        appt.backgroundColor = 'grey';
+      }
+      if(appt.start){
+        scheduled.push(appt);
+      }
+      else{
+        appt.scheduled = false;
+        queued.push(appt)
+      }  
+    }
+
     // Public API here
     return {
       getQueued: function () {
@@ -57,7 +86,7 @@ angular.module('schedulerApp')
         return scheduled;
       },
       addAppt: function(appt){
-        scheduled.push(appt);
+        sendAppt(appt);
       }
     };
   });

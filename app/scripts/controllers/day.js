@@ -12,6 +12,8 @@ angular.module('schedulerApp')
   	// this should accept an array from a service of scheduled appiontments and inject them into the day view, along with availabilities
   	//should send new availabilities and scheduled appointments from the service
 
+  	$scope.queued = apptManager.getQueued();
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -83,41 +85,62 @@ angular.module('schedulerApp')
     		$scope.gotoDate('myCalendar1', date);
     	if(view.name == 'agendaDay'){
     		$scope.addEventDisplay = true;
-    		$scope.newEvent.start = date._d
+    		var startTime = new Date(date._d);
+    		startTime.setTime(startTime.getTime() + 6*60*60*1000);
+    		$scope.newEvent.start = startTime; 
     	}
     }
 
     $scope.newEvent = {
-    	start: new Date(),
+    	start: undefined,
     	duration: 30,
-    	end: new Date(),
-    	person: "",
+    	end: undefined,
+    	person: ""
 
     }
 
     /* add custom event*/
     $scope.addEvent = function() {
     	var curTitle = "";
+    	var addApt = true
     	if($scope.newEvent.eventType == "Appointment"){
-    		$scope.newEvent.end = new Date(($scope.newEvent.start.getTime() + 1000*60*$scope.newEvent.duration));
-    		curTitle = $scope.newEvent.person
-
+    		if($scope.newEvent.start){
+    			$scope.newEvent.end = new Date(($scope.newEvent.start.getTime() + 1000*60*$scope.newEvent.duration));
+    			curTitle = $scope.newEvent.person
+    		}
     	}
-    	else if($scope.newEvent.eventType == "Availbility" || $scope.newEvent.eventType == "Busy"){
-    		$scope.duration = ($scope.newEvent.end.getTime() - $scope.newEvent.start.endTime())/60/1000
+    	else if($scope.newEvent.eventType == "Availability" || $scope.newEvent.eventType == "Busy"){
+    		$scope.duration = ($scope.newEvent.end.getTime() - $scope.newEvent.end.getTime())/60/1000
     		curTitle = $scope.newEvent.eventType
     	}
-    	apptManager.addAppt({
-    		title: curTitle,
-    		eventType: $scope.newEvent.eventType,
-    		start: $scope.newEvent.start,
-    		person: $scope.newEvent.person,
-    		apptType: $scope.newEvent.apptType,
-    		duration: $scope.newEvent.duration,
-    		end: $scope.newEvent.end,
-    		comments: $scope.newEvent.comments,
-    		bishopricMember: $scope.newEvent.bishopricMember
-    	})
+    	else{
+    		alert("Please Enter an Event Type");
+    		addApt = false
+    	}
+    	if(addApt){
+	    	apptManager.addAppt({
+	    		title: curTitle,
+	    		eventType: $scope.newEvent.eventType,
+	    		start: $scope.newEvent.start,
+	    		person: $scope.newEvent.person,
+	    		apptType: $scope.newEvent.apptType,
+	    		duration: $scope.newEvent.duration,
+	    		end: $scope.newEvent.end,
+	    		comments: $scope.newEvent.comments,
+	    		bishopricMember: $scope.newEvent.bishopricMember
+	    	});
+
+	    	curTitle = '';
+	    	$scope.newEvent.eventType = '';
+	    	$scope.newEvent.start = undefined;
+	    	$scope.newEvent.person = '';
+	    	$scope.newEvent.apptType = '';
+	    	$scope.newEvent.duration = 30;
+	    	$scope.newEvent.end = undefined;
+	    	$scope.newEvent.comments = '';
+	    	$scope.newEvent.bishopricMember = '';
+	    	$scope.addEventDisplay = false;
+    	}
     };
     $scope.gotoDate = function(calendar, date){
     	$scope.changeView('agendaDay', calendar);
