@@ -70,8 +70,13 @@ angular.module('schedulerApp')
       }
       else{
         appt.scheduled = false;
-        queued.push(appt)
+        queued.push(appt) 
       }  
+    }
+
+    var upAppt = function(appt){
+      //send to server
+      console.log('updating appointment...', appt);
     }
 
     // Public API here
@@ -87,6 +92,9 @@ angular.module('schedulerApp')
       },
       addAppt: function(appt){
         sendAppt(appt);
+      },
+      updateAppt: function(appt){
+        upAppt(appt);
       }
     };
   });

@@ -33,10 +33,10 @@ angular
             controller: 'NavCtrl',
             controllerAs: 'nav'
           },
-          'queue@home':{
-            templateUrl: 'views/queue.html',
-            controller: 'QueueCtrl',
-            controllerAs: 'queue'
+          'day@home':{
+            templateUrl: 'views/partial-home-day.html',
+            controller: 'DayCtrl',
+            controllerAs: 'day'
           }
         }
       })
@@ -46,22 +46,22 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-      .state('home.day', {
-        url: '/day',
-        templateUrl: 'views/partial-home-day.html',
-        controller: 'DayCtrl',
-        controllerAs: 'day'
-      })
-      .state('home.week', {
-        url: '/week',
-        templateUrl: 'views/partial-home-week.html',
-        controller: 'WeekCtrl',
-        controllerAs: 'week'
-      })
-      .state('home.month', {
-        url: '/month',
-        templateUrl: 'views/partial-home-month.html',
-        controller: 'MonthCtrl',
-        controllerAs: 'month'
-      });
+      // .state('home.day', {
+      //   url: '/day',
+      //   templateUrl: 'views/partial-home-day.html',
+      //   controller: 'DayCtrl',
+      //   controllerAs: 'day'
+      // })
+      // .state('home.week', {
+      //   url: '/week',
+      //   templateUrl: 'views/partial-home-week.html',
+      //   controller: 'WeekCtrl',
+      //   controllerAs: 'week'
+      // })
+      // .state('home.month', {
+      //   url: '/month',
+      //   templateUrl: 'views/partial-home-month.html',
+      //   controller: 'MonthCtrl',
+      //   controllerAs: 'month'
+      // });
   });

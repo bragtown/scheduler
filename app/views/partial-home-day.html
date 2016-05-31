@@ -1,5 +1,3 @@
-<p>This is the partial-home-day view.</p>
-
 <button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
 <button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
 <button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
@@ -10,7 +8,7 @@
 		<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar = "myCalendar1"></div>
 	</div>
 	<div class = "col-md-3">
-	<button class = "btn btn-success" ng-click = "addEventDisplay = !addEventDisplay">+Event</button>
+	<button class = "btn btn-success" ng-click = "addEventDisplay = !addEventDisplay; updateEventDisplay = false;">New Event</button>
 		 <!-- Move queue in here  -->
 		<div ng-show = "addEventDisplay" class = "well">
 		 	<label>Event Type</label>
@@ -49,8 +47,47 @@
 		 	<button class = "btn btn-success" ng-click = "addEvent()">Submit</button>
 		</div>
 
+		<div ng-show = "updateEventDisplay" class = "well">
+		 	<label>Event Type</label>
+		 	<select class = "form-control" ng-model = "
+		 	curEvent.eventType">
+		 		<option value = "Appointment">Appointment</option>
+		 		<option value = "Availability">Availability</option>
+		 		<option value = "Busy">Busy</option>
+		 	</select>
+
+		 	<label>Start Time</label>
+		 	<input class = "form-control" type = "datetime-local" ng-model = "curEvent.start">
+
+		 	<!-- These are if appointment was selected previously -->
+		 	<div ng-if = "curEvent.eventType == 'Appointment'">
+			 	<label>Person</label>
+			 	<input class = "form-control" type = "text" ng-model = "curEvent.person">
+			 	<label>Appointment Type</label>
+			 	<input class = "form-control" type = "text" ng-model = "curEvent.apptType">
+			 	<label>Duration (minutes)</label>
+			 	<input class = "form-control" type = "number" ng-model = "curEvent.duration">
+		 	</div>
+		 	<!-- otherwise -->
+		 	<div ng-if = "curEvent.eventType == 'Availability' || curEvent.eventType == 'Busy'">
+			 	<label>End Time</label>
+			 	<input class = "form-control" type = "datetime-local" ng-model = "curEvent.end">
+		 	</div>
+
+		 	<label>Comments</label>
+		 	<textarea class = "form-control" ng-model = "curEvent.comments"></textarea>
+		 	<label>Bishopric Member</label>
+		 	<select class = "form-control" ng-model = "curEvent.bishopricMember">
+		 		<option value = "Bishop">Bishop</option>
+		 		<option value = "1st">1st</option>
+		 		<option value = "2nd">2nd</option>
+		 	</select>
+		 	<button class = "btn btn-success" ng-click = "updateEvent()">Submit</button>
+		</div>
+
+
 		<h4>Queue</h4> <hr>
-		<div ng-repeat = "v in queued" class = "queue bg-info">
+		<div ng-repeat = "v in queued" class = "queue bg-info" ng-click = "queueClick(v)">
 			<strong>{{v.person}}</strong><br>
 			Visit Type: {{v.apptType}}<br>
 			Comments: {{v.comments}}

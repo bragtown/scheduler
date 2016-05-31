@@ -46,17 +46,34 @@ angular.module('schedulerApp')
           {type:'party',title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
         ]
     };
-    /* alert on eventClick */
-    $scope.alertOnEventClick = function( date, jsEvent, view){
-        $scope.alertMessage = (date.title + ' was clicked ');
-    };
     /* alert on Drop */
      $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
-       $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
+     	$scope.curEvent = $scope.events.find(function(e){
+     		if(e._id === event._id){
+     			e.start = new Date(event.start._d.getTime() + 6*60*60*1000);
+     			e.end = new Date(event.end._d.getTime() + 6*60*60*1000);
+    			return true;
+     		}
+     		else{
+     			return false;
+     		}
+    	});
+    	$scope.updateEvent();
     };
     /* alert on Resize */
     $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
-       $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
+     	$scope.curEvent = $scope.events.find(function(e){
+     		if(e._id === event._id){
+     			e.start = new Date(event.start._d.getTime() + 6*60*60*1000);
+     			e.end = new Date(event.end._d.getTime() + 6*60*60*1000);
+    			return true;
+     		}
+     		else{
+     			return false;
+     		}
+    	});
+    	
+    	$scope.updateEvent();
     };
     /* add and removes an event source of choice */
     $scope.addRemoveEventSource = function(sources,source) {
@@ -85,6 +102,7 @@ angular.module('schedulerApp')
     		$scope.gotoDate('myCalendar1', date);
     	if(view.name == 'agendaDay'){
     		$scope.addEventDisplay = true;
+    		$scope.updateEventDisplay = false;
     		var startTime = new Date(date._d);
     		startTime.setTime(startTime.getTime() + 6*60*60*1000);
     		$scope.newEvent.start = startTime; 
@@ -119,7 +137,6 @@ angular.module('schedulerApp')
     	}
     	if(addApt){
 	    	apptManager.addAppt({
-	    		title: curTitle,
 	    		eventType: $scope.newEvent.eventType,
 	    		start: $scope.newEvent.start,
 	    		person: $scope.newEvent.person,
@@ -129,8 +146,10 @@ angular.module('schedulerApp')
 	    		comments: $scope.newEvent.comments,
 	    		bishopricMember: $scope.newEvent.bishopricMember
 	    	});
-
-	    	curTitle = '';
+	    	clearNewEvent();
+    	}
+    };
+    var clearNewEvent = function(){
 	    	$scope.newEvent.eventType = '';
 	    	$scope.newEvent.start = undefined;
 	    	$scope.newEvent.person = '';
@@ -140,8 +159,8 @@ angular.module('schedulerApp')
 	    	$scope.newEvent.comments = '';
 	    	$scope.newEvent.bishopricMember = '';
 	    	$scope.addEventDisplay = false;
-    	}
-    };
+
+    }
     $scope.gotoDate = function(calendar, date){
     	$scope.changeView('agendaDay', calendar);
     	uiCalendarConfig.calendars[calendar].fullCalendar('gotoDate',date);
@@ -159,6 +178,25 @@ angular.module('schedulerApp')
                      'tooltip-append-to-body': true});
         $compile(element)($scope);
     };
+    $scope.eventClick = function(event, jsEvent, view){
+    	$scope.curEvent = $scope.events.find(function(e){
+    		return e._id === event._id
+    	});
+    	console.log($scope.curEvent);
+    	//make a div visible that is bound to th data found above
+    	$scope.updateEventDisplay = true;
+    	$scope.addEventDisplay = false;
+    }
+    $scope.updateEvent = function(){
+    	apptManager.updateAppt($scope.curEvent);
+    	$scope.updateEventDisplay = false;
+    }
+    $scope.queueClick = function(q){
+    	$scope.curEvent = q;
+    	$scope.updateEventDisplay = true;
+    	$scope.addEventDisplay = false;
+    	
+    }
     /* config object */
     $scope.uiConfig = {
       calendar:{
@@ -169,11 +207,11 @@ angular.module('schedulerApp')
           center: '',
           right: 'today prev,next'
         },
-        eventClick: $scope.alertOnEventClick,
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
         eventRender: $scope.eventRender,
-        dayClick: $scope.dayClick 
+        dayClick: $scope.dayClick,
+        eventClick: $scope.eventClick
       }
     };
 
