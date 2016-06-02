@@ -8,9 +8,10 @@
  * Factory in the schedulerApp.
  */
 angular.module('schedulerApp')
-  .factory('apptManager', function () {
+  .factory('apptManager', function ($http, $state) {
     // Service logic
     // ...
+    var server = "http://localhost:3000"
     var sendAppt = function(appt){
       //sends appt to server
       queued.push(appt)
@@ -77,6 +78,7 @@ angular.module('schedulerApp')
     var upAppt = function(appt){
       //send to server
       console.log('updating appointment...', appt);
+      
     }
 
     // Public API here
@@ -95,6 +97,32 @@ angular.module('schedulerApp')
       },
       updateAppt: function(appt){
         upAppt(appt);
+      },
+      authenticate: function(){
+        console.log($http.defaults.headers)
+        $http.get('http://localhost:3000/authenticate').then(function(res){
+          if(res.data == '/login')
+            $state.go('login');
+        });
+      },
+      signup: function(user){
+        console.log(user);
+        $http.post(server + '/signup', user).then(function(res){
+          console.log(res)
+          $state.go(res.data)
+        })
+      },
+      signin: function(user){
+        $http.post(server + '/login', user).then(function(res){
+          console.log(res);
+          $state.go(res.data);
+        })
+      },
+      logout: function(){
+        $http.get(server + '/logout').then(function(res){
+          $state.go(res.data);
+        })
       }
+
     };
   });

@@ -8,6 +8,9 @@
  * Controller of the schedulerApp
  */
 angular.module('schedulerApp')
-  .controller('NavCtrl', function () {
+  .controller('NavCtrl', function ($scope, apptManager) {
 	//this should just update the navigation when nav is clicked on
+	$scope.logout = function(){
+		apptManager.logout();
+	}
   });

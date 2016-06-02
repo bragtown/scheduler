@@ -17,11 +17,21 @@ angular
     'ui.router',
     'ui.calendar'
   ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+
+    $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.withCredentials = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    
     $urlRouterProvider.otherwise('/home');
     $stateProvider
       .state('home', {
         url: '/home',
+        resolve: {
+          auth: function(apptManager){
+            return apptManager.authenticate()
+          }
+        },
         views: {
           '':{
             templateUrl: 'views/main.html',

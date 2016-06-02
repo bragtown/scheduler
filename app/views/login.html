@@ -1,1 +1,29 @@
-<p>This is the login view.</p>
+<br>
+<div class = "container">
+	<div class = "well">
+		<ul class = "nav nav-tabs">
+			<li role = "presentation" ng-class = "isActive()" ng-click = "active = !active"><a>Login</a></li>
+			<li role = "presentation" ng-class = "isNotActive()" ng-click = "active = !active"><a>Signup</a></li>
+		</ul>
+	<!-- signup -->
+		<div class = "" ng-show = "active">
+			<label class="label label-default">Email</label>
+			<input class = "form-control" type = "email" ng-model = "user.email"/>
+			<label class="label label-default">Password</label>
+			<input class = "form-control" type = "password" ng-model = "user.password"/>
+			<button class = "btn btn-primary" ng-click = "signin()">Log In!</button>
+		</div>
+		<div class = "" ng-hide = "active">
+			<label class="label label-default">First Name</label>
+			<input class = "form-control" type = "text" ng-model = "sign.fName"/>
+			<label class="label label-default">Last Name</label>
+			<input class = "form-control" type = "text" ng-model = "sign.lName"/>
+			<label class="label label-default">Email</label>
+			<input class = "form-control" type = "email" ng-model = "sign.email"/>
+			<label class="label label-default">Password</label>
+			<input class = "form-control" type = "password" ng-model = "sign.password"/>
+			<button class = "btn btn-primary" ng-click = "signup()">Sign Up!</button>
+		</div>
+	<!-- login -->
+	</div>
+</div>
