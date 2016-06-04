@@ -132,8 +132,8 @@ angular.module('schedulerApp')
           console.log(res);
         })
       },
-      createCal: function(calName){
-        $http.post(server+'/calendar', calName).then(function(res){
+      createCal: function(cal){
+        $http.post(server+'/calendar', {calName: cal}).then(function(res){
           console.log(res);
           if(res.data.redirect)
             $state.go(res.data.redirect);

@@ -18,8 +18,8 @@
 			<input class = "form-control" type = "password" ng-model = "user.cPassword"/>
 
 			<label class="label label-default">Calendar</label>
-			<select class = "form-control">
-				<option>Some calendar</option>
+			<select class = "form-control" ng-model = "user.curCalendar">
+				<option ng-repeat = "cal in calendars" value = "{{cal.name}}">{{cal.name}}</option>
 			</select><br>
 			<button class = "btn btn-primary" ng-click = "updateUser()">Update!</button>
 		</div>

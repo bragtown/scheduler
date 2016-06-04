@@ -14,8 +14,11 @@ angular.module('schedulerApp')
     $scope.user = {
       fName: account.fName,
       lName: account.lName,
-      email: account.email
+      email: account.email,
+      curCalendar: account.curCalendar
     }
+    $scope.calendars = account.userCalendars;
+    console.log($scope.calendars)
   	//should allow ability to update password and username
   	$scope.updateUser = function(){
   		apptManager.updateUser($scope.user);
