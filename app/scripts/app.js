@@ -59,7 +59,7 @@ angular
         controllerAs: 'day'
       })
       .state('home.account', {
-        url: '/week',
+        url: '/account',
         resolve: {
           account: function(apptManager){
             return apptManager.getAccount()

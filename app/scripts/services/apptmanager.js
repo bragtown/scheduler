@@ -110,34 +110,39 @@ angular.module('schedulerApp')
         console.log(user);
         $http.post(server + '/signup', user).then(function(res){
           console.log(res)
-          $state.go(res.data)
+          if(res.data.redirect)
+            $state.go(res.data.redirect)
         })
       },
       signin: function(user){
         $http.post(server + '/login', user).then(function(res){
           console.log(res);
-          $state.go(res.data);
+          if(res.data.redirect)
+            $state.go(res.data.redirect);
         })
       },
       logout: function(){
-        $http.get(server + '/logout').then(function(res){
-          $state.go(res.data);
+        $http.get(server + '/logout').
+        if(res.data.redirect).then(function(res){
+            $state.go(res.data.redirect);
         })
       },
       updateUser: function(user){
-        $http.put(server + '/login', user).then(function(res){
+        $http.put(server + '/account', user).then(function(res){
           console.log(res);
-          $state.go(res.data);
         })
       },
       createCal: function(calName){
         $http.post(server+'/calendar', calName).then(function(res){
           console.log(res);
-          $state.go(res.data);
+          if(res.data.redirect)
+            $state.go(res.data.redirect);
         })
       },
       getAccount:function(){
         return $http.get(server+'/account').then(function(res){
+          if(res.data.redirect)
+            $state.go(res.data.redirect);
           return res.data
         })
       }
