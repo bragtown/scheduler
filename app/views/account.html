@@ -1,1 +1,33 @@
-<p>This is the account view.</p>
+
+<br>
+<div class = "container">
+	<div class = "">
+	<!-- update -->
+		<div class = "well">
+			<label>My Account</label><br>
+			<label class="label label-default">First Name</label>
+			<input class = "form-control" type = "text" ng-model = "user.fName"/>
+			<label class="label label-default">Last Name</label>
+			<input class = "form-control" type = "text" ng-model = "user.lName"/>
+			<label class="label label-default">Email</label>
+			<input class = "form-control" type = "email" ng-model = "user.email"/>
+			<label class="label label-default">New 
+			Password</label>
+			<input class = "form-control" type = "password" ng-model = "user.password"/>
+			<label class="label label-default">Confirm Password</label>
+			<input class = "form-control" type = "password" ng-model = "user.cPassword"/>
+
+			<label class="label label-default">Calendar</label>
+			<select class = "form-control">
+				<option>Some calendar</option>
+			</select><br>
+			<button class = "btn btn-primary" ng-click = "updateUser()">Update!</button>
+		</div>
+		<div class = "well">
+			<label>New Calendar</label><br>
+			<label class="label label-default">New Calendar Name</label>
+			<input type="text" name="calName" class = "form-control" ng-model = "calName"/><br>
+			<button class = "btn btn-primary" ng-click = "createCal()">Create Calendar</button>
+		</div>
+	</div>
+</div>

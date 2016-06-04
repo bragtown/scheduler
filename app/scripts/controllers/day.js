@@ -11,6 +11,10 @@ angular.module('schedulerApp')
   .controller('DayCtrl', function ($scope, $compile, uiCalendarConfig, apptManager) {
   	// this should accept an array from a service of scheduled appiontments and inject them into the day view, along with availabilities
   	//should send new availabilities and scheduled appointments from the service
+
+    //should have a place to invite others to the calendar
+    //should be able to delete others from the calendar
+
   	$scope.queued = apptManager.getQueued();
 
     var date = new Date();

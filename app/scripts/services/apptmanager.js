@@ -101,7 +101,8 @@ angular.module('schedulerApp')
       authenticate: function(){
         console.log($http.defaults.headers)
         $http.get('http://localhost:3000/authenticate').then(function(res){
-          if(res.data == '/login')
+          console.log(res);
+          if(res.data == 'login')
             $state.go('login');
         });
       },
@@ -121,6 +122,23 @@ angular.module('schedulerApp')
       logout: function(){
         $http.get(server + '/logout').then(function(res){
           $state.go(res.data);
+        })
+      },
+      updateUser: function(user){
+        $http.put(server + '/login', user).then(function(res){
+          console.log(res);
+          $state.go(res.data);
+        })
+      },
+      createCal: function(calName){
+        $http.post(server+'/calendar', calName).then(function(res){
+          console.log(res);
+          $state.go(res.data);
+        })
+      },
+      getAccount:function(){
+        return $http.get(server+'/account').then(function(res){
+          return res.data
         })
       }
 

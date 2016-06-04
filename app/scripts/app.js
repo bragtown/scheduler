@@ -14,6 +14,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngCookies',
     'ui.router',
     'ui.calendar'
   ])
@@ -42,11 +43,6 @@ angular
             templateUrl: 'views/nav.html',
             controller: 'NavCtrl',
             controllerAs: 'nav'
-          },
-          'day@home':{
-            templateUrl: 'views/partial-home-day.html',
-            controller: 'DayCtrl',
-            controllerAs: 'day'
           }
         }
       })
@@ -56,18 +52,23 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-      // .state('home.day', {
-      //   url: '/day',
-      //   templateUrl: 'views/partial-home-day.html',
-      //   controller: 'DayCtrl',
-      //   controllerAs: 'day'
-      // })
-      // .state('home.week', {
-      //   url: '/week',
-      //   templateUrl: 'views/partial-home-week.html',
-      //   controller: 'WeekCtrl',
-      //   controllerAs: 'week'
-      // })
+      .state('home.day', {
+        url: '/day',
+        templateUrl: 'views/partial-home-day.html',
+        controller: 'DayCtrl',
+        controllerAs: 'day'
+      })
+      .state('home.account', {
+        url: '/week',
+        resolve: {
+          account: function(apptManager){
+            return apptManager.getAccount()
+          }
+        },
+        templateUrl: 'views/account.html',
+        controller: 'AccountCtrl',
+        controllerAs: 'account'
+      })
       // .state('home.month', {
       //   url: '/month',
       //   templateUrl: 'views/partial-home-month.html',
