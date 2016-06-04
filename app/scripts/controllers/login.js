@@ -9,23 +9,21 @@
  */
 angular.module('schedulerApp')
   .controller('LoginCtrl', function ($scope, apptManager) {
+	$scope.tabs = {
+		'login': true,
+		'signup': false
+	};
   	// this should send login information to a service from the login screen
-  	$scope.isActive = function(){
-  		if($scope.active == true){
-  			return "active";
-  		}
-  		else{
-  			return '';
-  		}
-  	}
-  	$scope.isNotActive = function(){
-  		if($scope.active != true){
-  			return "active";
-  		}
-  		else{
-  			return '';
-  		}
-  	}
+  	$scope.isActive = function(tab){
+		return $scope.tabs[tab] ? 'active' : '';
+  	};
+	$scope.activate = function (tab) {
+		if (!$scope.tabs[tab]) {
+			for (var tabId in $scope.tabs) {
+				$scope.tabs[tabId] = !$scope.tabs[tabId];
+			}
+		}
+	};
   	$scope.active = true;
   	$scope.signin = function(){
   		apptManager.signin($scope.user);
