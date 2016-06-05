@@ -17,8 +17,8 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a ui-sref="home.day">Calendar</a></li>
-              <li class = ""><a ui-sref="home.account">Account</a></li>
+              <li ng-class="isActive('Calendar')"><a ng-click = "activate('Calendar')" ui-sref="home.day">Calendar</a></li>
+              <li ng-class = "isActive('Account')"><a ng-click = "activate('Account')" ui-sref="home.account">Account</a></li>
               <li><a ng-click = "logout()">Logout</a> <!-- this should trigger a logout function, nothing more --> </li> 
               <!-- 
               <li><a ng-href="">Previous</a></li>

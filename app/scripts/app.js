@@ -54,6 +54,11 @@ angular
       })
       .state('home.day', {
         url: '/day',
+        resolve: {
+          account: function(apptManager){
+            return apptManager.getAccount()
+          }
+        },
         templateUrl: 'views/partial-home-day.html',
         controller: 'DayCtrl',
         controllerAs: 'day'
