@@ -3,6 +3,9 @@
 <div class = "container">
 	<div class = "">
 	<!-- update -->
+		<div ng-show = "resMessage.message" ng-class = "resMessage.getClass()" class = "resMessage">
+			{{resMessage.message}}
+		</div>
 		<div class = "well">
 			<label>My Account</label><br>
 			<label class="label label-default">First Name</label>
@@ -18,9 +21,10 @@
 			<input class = "form-control" type = "password" ng-model = "user.cPassword"/>
 
 			<label class="label label-default">Calendar</label>
-			<select class = "form-control" ng-model = "user.curCalendar">
+			<select class = "form-control" ng-model = "user.curCalendar	">
 				<option ng-repeat = "cal in calendars" value = "{{cal.name}}">{{cal.name}}</option>
-			</select><br>
+			</select>
+			<br>
 			<button class = "btn btn-primary" ng-click = "updateUser()">Update!</button>
 		</div>
 		<div class = "well">
@@ -29,5 +33,20 @@
 			<input type="text" name="calName" class = "form-control" ng-model = "calName"/><br>
 			<button class = "btn btn-primary" ng-click = "createCal()">Create Calendar</button>
 		</div>
+		<div class = "well">
+
+			<label class = "label label-default">{{calendar.name}} Calendar Users</label>
+			
+			<div ng-repeat = "user in calendar.users" class = "user bg-info">
+				{{user}}
+				<span class = "glyphicon glyphicon-remove-circle fRight remove" ng-click = "removeUser($index)"></span>
+			</div>
+			
+			<label class = "label label-default">New User</label>
+			<input type="email" name="" class = "form-control" ng-model = "newCalUser">
+			<br>
+			<button class = "btn btn-success" ng-click = "updateCalUsers()">Update Calendar Users</button>
+
+		</div>
 	</div>
-</div>
+</div>    	

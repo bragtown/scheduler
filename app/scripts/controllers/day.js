@@ -8,14 +8,14 @@
  * Controller of the schedulerApp
  */
 angular.module('schedulerApp')
-  .controller('DayCtrl', function ($scope, $compile, uiCalendarConfig, apptManager) {
+  .controller('DayCtrl', function ($scope, $compile, uiCalendarConfig, apptManager, scheduled, queued) {
   	// this should accept an array from a service of scheduled appiontments and inject them into the day view, along with availabilities
   	//should send new availabilities and scheduled appointments from the service
 
     //should have a place to invite others to the calendar
     //should be able to delete others from the calendar
 
-  	$scope.queued = apptManager.getQueued();
+  	$scope.queued = queued;
 
     var date = new Date();
     var d = date.getDate();
@@ -30,7 +30,11 @@ angular.module('schedulerApp')
     //         currentTimezone: 'America/Chicago' // an option!
     // };
     /* event source that contains custom events on the scope */
-    $scope.events = apptManager.getScheduled();
+
+
+    $scope.resMessage = apptManager.getResponse()
+    
+    $scope.events = scheduled;
     /* event source that calls a function on every view switch */
     $scope.eventsF = function (start, end, timezone, callback) {
       var s = new Date(start).getTime() / 1000;
@@ -189,6 +193,11 @@ angular.module('schedulerApp')
     	//make a div visible that is bound to th data found above
     	$scope.updateEventDisplay = true;
     	$scope.addEventDisplay = false;
+    }
+    $scope.deleteEvent = function(){
+      console.log($scope.curEvent)
+      apptManager.deleteEvent($scope.curEvent);
+      $scope.updateEventDisplay = false;
     }
     $scope.updateEvent = function(){
     	apptManager.updateAppt($scope.curEvent);

@@ -1,3 +1,21 @@
+.resMessage{
+  padding:.5em;
+}
+.user{
+  padding:.5em;
+  width:20em;
+  margin:.2em;
+  border:1px solid #d9edf7;
+  border-radius: 2px;
+}
+.remove:hover{
+  color:red;
+  cursor:pointer;
+}
+
+.fRight{
+  float:right;
+}
 .pushL{
   margin-left: 3em;
 }

@@ -57,8 +57,15 @@ angular
         resolve: {
           account: function(apptManager){
             return apptManager.getAccount()
+          },
+          scheduled: function(apptManager){
+            return apptManager.getScheduled();
+          },
+          queued: function(apptManager){
+            return apptManager.getQueued();
           }
         },
+
         templateUrl: 'views/partial-home-day.html',
         controller: 'DayCtrl',
         controllerAs: 'day'

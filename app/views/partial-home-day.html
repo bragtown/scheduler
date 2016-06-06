@@ -4,11 +4,13 @@
 
 <div class = "row">
 	<div class = "col-md-9">
-
 		<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar = "myCalendar1"></div>
 	</div>
 	<div class = "col-md-3">
-	<button class = "btn btn-success" ng-click = "addEventDisplay = !addEventDisplay; updateEventDisplay = false;">New Event</button>
+		<div ng-show = "resMessage.message" ng-class = "resMessage.getClass()" class = "resMessage">
+			{{resMessage.message}}
+		</div>
+		<button class = "btn btn-success" ng-click = "addEventDisplay = !addEventDisplay; updateEventDisplay = false;">New Event</button>
 		 <!-- Move queue in here  -->
 		<div ng-show = "addEventDisplay" class = "well">
 		 	<label>Event Type</label>
@@ -48,6 +50,7 @@
 		</div>
 
 		<div ng-show = "updateEventDisplay" class = "well">
+			<span class = "glyphicon glyphicon-remove fRight remove" ng-click = "deleteEvent()"></span>
 		 	<label>Event Type</label>
 		 	<select class = "form-control" ng-model = "
 		 	curEvent.eventType">
