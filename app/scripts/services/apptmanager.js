@@ -11,6 +11,7 @@ angular.module('schedulerApp')
   .factory('apptManager', function ($http, $state) {
     // Service logic
     // ...
+    //var server = "http://localhost:3000"
     var server = "http://localhost:3000"
 
 
@@ -93,7 +94,7 @@ angular.module('schedulerApp')
       },
       authenticate: function(){
         console.log($http.defaults.headers)
-        $http.get('http://localhost:3000/authenticate').then(function(res){
+        $http.get(server + '/authenticate').then(function(res){
           console.log(res);
           if(res.data == 'login')
             $state.go('login');
